@@ -28,8 +28,7 @@ namespace BancoProjeto2.Entities
             }
 
             // Verificação de disponibilidade de nome de usuário
-            bool exists = Contas.Exists(x => x.Usuario == usuario);
-            if (exists == true)
+            if (Contas.Exists(x => x.Usuario == usuario) == true)
             {
                 return "001"; /// 001 - Usuário já existente
             }
@@ -45,14 +44,29 @@ namespace BancoProjeto2.Entities
 
         public string VerificarLogin(string usuario, string senha)
         {
-            return "";
+            if (Contas.Exists(x => x.Usuario == usuario) == true)
+            {
+                int pos = Contas.FindIndex(x => x.Usuario == usuario);
+                if (Contas.ElementAt(pos).Senha == senha)
+                {
+                    return "003"; // 003 - Login com sucesso!
+                }
+                else
+                {
+                    return "004"; // 004 - Usuário ou senha inválido!
+                }
+            }
+            else
+            {
+                return "005"; // 005 - Usuário inexistente
+            }
         }
 
         public string VerificarErro(string codigo)
         {
             if (codigo == "000")
             {
-                return "Cadastrado com sucesso";
+                return "Cadastrado com sucesso!!!";
             }
             else if (codigo == "001")
             {
@@ -61,6 +75,18 @@ namespace BancoProjeto2.Entities
             else if (codigo == "002")
             {
                 return "Nome de usuário e senha precisam ter 4 caracteres ou mais";
+            }
+            else if (codigo == "003")
+            {
+                return "Login com sucesso!!!";
+            }
+            else if (codigo == "004")
+            {
+                return "Usuário ou senha Inválido!";
+            }
+            else if (codigo == "005")
+            {
+                return "Usuário inexistente";
             }
             else
             {
