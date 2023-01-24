@@ -2,21 +2,23 @@
 
 namespace BancoProjeto2.Entities
 {
-    internal class Cliente
+    internal class Conta
     {
         public string Usuario { get; set; }
         public string Senha { get; set; }
-        public List<Cliente> Contas { get; set; }
+        public double Saldo { get; set; }
+        public List<Conta> Contas { get; set; }
 
-        public Cliente()
+        public Conta()
         {
-            Contas = new List<Cliente>();
+            Contas = new List<Conta>();
         }
 
-        public Cliente(string usuario, string senha)
+        public Conta(string usuario, string senha)
         {
             Usuario = usuario;
             Senha = senha;
+            Saldo = 0.0;
         }
 
         public string CadastrarCliente(string usuario, string senha)
@@ -37,7 +39,7 @@ namespace BancoProjeto2.Entities
             {
                 Usuario = usuario;
                 Senha = senha;
-                Contas.Add(new Cliente(Usuario, Senha));
+                Contas.Add(new Conta(Usuario, Senha));
                 return "000"; /// 000 - Cadastrado com sucessos
             }
         }
